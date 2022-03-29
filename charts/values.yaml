@@ -1,0 +1,111 @@
+# Default values for bucketeer.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: uclalibrary/bucketeer
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext:
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: bucketeer.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+affinity: {}
+
+
+bucketeer:
+  port: 8888
+  overrideConfigMap: true
+  overrideSecrets: true
+  env:
+    configmap:
+      LAMBDA_S3_BUCKET: "test-bucketeer-tiff-lambda"
+      BUCKETEER_S3_BUCKET: "test-iiif-cantaloupe-source"
+      BUCKETEER_S3_REGION: "us-west-2"
+      BUCKETEER_FS_IMAGE_MOUNT: "/opt/data"
+      BUCKETEER_FS_IMAGE_PREFIX: "UCLAFilePathPrefix"
+      BUCKETEER_SLACK_ERROR_CHANNEL_ID: "dev-null"
+      BUCKETEER_SLACK_CHANNEL_ID: "dev-null"
+      BUCKETEER_IIIF_URL: "https://test-iiif.library.ucla.edu/iiif/2/"
+      HEAP_SIZE: "2g"
+      SOURCE_MAX_FILE_SIZE: "350000000"
+      HTTP_MAX_QUEUE_SIZE: "5"
+      S3_UPLOADER_THREADS: "10"
+      S3_MAX_REQUESTS: "10"
+      S3_MAX_RETRIES: "30"
+      FEATURE_FLAGS: "https://raw.githubusercontent.com/UCLALibrary/ansible_uclalib_plays/master/bucketeer/files/bucketeer-features-on.conf"
+      LARGE_IMAGE_BUCKETEER: "http://bucketeer_large:8888"
+      BATCH_CALLBACK_URL: "http://bucketeer.test-bucketeer.svc.cluster.local/batch/jobs/{}/{}/"
+      FESTER_URL: "http://test-iiif.library.ucla.edu/fester"
+    secrets:
+      BUCKETEER_S3_SECRET_KEY: "ENTERSECRET"
+      BUCKETEER_S3_ACCESS_KEY: "ENTERKEY"
+      BUCKETEER_SLACK_OAUTH_TOKEN: "ENTERTOKEN"
