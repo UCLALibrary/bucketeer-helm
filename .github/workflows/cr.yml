@@ -48,7 +48,7 @@ jobs:
 
       - name: Test CR action on changed file(s)
         run: |
-          ./cr package charts
+          ./cr package .
 
   publish:
     runs-on: ubuntu-latest
