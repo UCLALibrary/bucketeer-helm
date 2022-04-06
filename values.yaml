@@ -81,6 +81,14 @@ tolerations: []
 affinity: {}
 
 
+## @section Bucketeer General parameters
+## @param bucketeer.port Port to run Bucketeer Service
+## @param bucketeer.overrideConfigMap Force overwriting existing ConfigMap in deployed namespace
+## @param bucketeer.overrideSecrets Force overwriting existing Secrets in deployed namespace
+
+## @section Bucketeer ConfigMap Parameters
+## @param bucketeer.env.configmap.LAMBDA_S3_BUCKET Lambda S3 Source Bucket
+## @param bucketeer.env.configmap.BUCKETEER_S3_BUCKET Output Image Bucket for Lambda
 bucketeer:
   port: 8888
   overrideConfigMap: true
