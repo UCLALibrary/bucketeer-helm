@@ -40,7 +40,7 @@ jobs:
 
       - name: Lint helm chart
         run: |
-          helm lint charts
+          helm lint .
 
       - name: Install CR
         run: |
