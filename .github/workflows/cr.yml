@@ -24,7 +24,7 @@ jobs:
 
       - name: Add helm repository dependencies
         run: |
-          for chartyaml in $(find charts -type f -name "Chart.yaml")
+          for chartyaml in $(find . -type f -name "Chart.yaml")
           do
             dependencies=$(cat ${chartyaml} | grep "repository: https" | awk '{print $2}' | xargs)
             subchart_root=$(echo ${chartyaml} | awk -F '[/]' '{print $1"/"$2}')
