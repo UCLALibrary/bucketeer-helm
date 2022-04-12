@@ -13,12 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 #v2
         with:
           fetch-depth: 0
 
       - name: Install Helm
-        uses: azure/setup-helm@v1
+        uses: azure/setup-helm@18bc76811624f360dbd7f18c2d4ecb32c7b87bab #v1
         with:
           version: v3.8.1
 
@@ -56,7 +56,7 @@ jobs:
     if: github.event_name != 'pull_request'
     steps:
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.4.0
+        uses: helm/chart-releaser-action@a3454e46a6f5ac4811069a381e646961dda2e1bf #v1.4.0
         with:
           charts_dir: .
         env:
