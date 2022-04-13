@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  bucketeer:
+  - apiVersion: v2
+    appVersion: 0.5.5
+    created: "2022-04-13T02:57:24.628568088Z"
+    description: Helm Chart to Deploy Bucketeer
+    digest: f6ff53ecacc8a125e255922c2006794a428b7e9a6405d909854ef7af77dc1e6e
+    name: bucketeer
+    type: application
+    urls:
+    - https://github.com/UCLALibrary/bucketeer-helm/releases/download/bucketeer-1.1.0/bucketeer-1.1.0.tgz
+    version: 1.1.0
+generated: "2022-04-13T02:57:24.628582188Z"
